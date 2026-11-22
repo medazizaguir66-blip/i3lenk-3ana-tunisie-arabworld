@@ -60,7 +60,7 @@ export const getAdminData = createServerFn({ method: "GET" }).handler(async (): 
 });
 
 export const adminLogin = createServerFn({ method: "POST" })
-  .inputValidator((input: { password: string }) => ({ password: z.string().max(200).parse(input.password) }))
+  .validator((input: { password: string }) => ({ password: z.string().max(200).parse(input.password) }))
   .handler(async ({ data }) => {
     const expected = process.env["ADMIN_PASSWORD"];
     if (!expected) return { ok: false as const, message: "كلمة السر غير مضبوطة في الإعدادات." };
@@ -82,7 +82,7 @@ export const adminLogout = createServerFn({ method: "POST" }).handler(async () =
 });
 
 export const adminCreateCode = createServerFn({ method: "POST" })
-  .inputValidator((input: { note?: string }) => ({ note: z.string().trim().max(120).optional().parse(input.note) }))
+  .validator((input: { note?: string }) => ({ note: z.string().trim().max(120).optional().parse(input.note) }))
   .handler(async ({ data }) => {
     const admin = await requireAdmin();
     for (let attempt = 0; attempt < 5; attempt++) {
@@ -97,7 +97,7 @@ export const adminCreateCode = createServerFn({ method: "POST" })
 const idSchema = z.object({ id: z.string().uuid() });
 
 export const adminRevokeCode = createServerFn({ method: "POST" })
-  .inputValidator((input: { id: string; revoked: boolean }) => ({
+  .validator((input: { id: string; revoked: boolean }) => ({
     ...idSchema.parse(input),
     revoked: z.boolean().parse(input.revoked),
   }))
@@ -109,7 +109,7 @@ export const adminRevokeCode = createServerFn({ method: "POST" })
   });
 
 export const adminUnbindCode = createServerFn({ method: "POST" })
-  .inputValidator((input: { id: string }) => idSchema.parse(input))
+  .validator((input: { id: string }) => idSchema.parse(input))
   .handler(async ({ data }) => {
     const admin = await requireAdmin();
     const { error } = await admin.from("activation_codes").update({ device_id: null }).eq("id", data.id);

@@ -77,6 +77,7 @@
   --color-gold-bright: var(--gold-bright);
   --color-gold-deep: var(--gold-deep);
   --color-gold-foreground: var(--gold-foreground);
+  --color-gold-soft: var(--gold-soft);
   --color-success: var(--success);
   --color-success-foreground: var(--success-foreground);
   --font-display: "Reem Kufi", "IBM Plex Sans Arabic", system-ui, sans-serif;
@@ -118,6 +119,9 @@
   --gold-bright: oklch(0.92 0.12 95);
   --gold-deep: oklch(0.66 0.14 68);
   --gold-foreground: oklch(0.25 0.06 60);
+  --gold-soft: oklch(0.96 0.045 90);
+  --gradient-gold-card: radial-gradient(90% 60% at 50% 0%, oklch(0.97 0.08 95) 0%, transparent 70%),
+    linear-gradient(160deg, oklch(0.9 0.13 92) 0%, oklch(0.8 0.155 80) 55%, oklch(0.68 0.145 66) 100%);
   --success: oklch(0.6 0.15 155);
   --success-foreground: oklch(0.99 0 0);
 
@@ -162,6 +166,9 @@
 }
 @utility bg-gold-gradient {
   background: var(--gradient-gold);
+}
+@utility bg-gold-card {
+  background: var(--gradient-gold-card);
 }
 @utility bg-red-gradient {
   background: var(--gradient-red);

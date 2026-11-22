@@ -7,7 +7,7 @@ const deviceSchema = z.string().regex(/^[A-Za-z0-9_-]{8,128}$/);
 export type AppStatus = { pro: boolean; proUntil: string | null; remaining: number };
 
 export const getAppStatus = createServerFn({ method: "POST" })
-  .inputValidator((input: { deviceId: string }) => ({ deviceId: deviceSchema.parse(input.deviceId) }))
+  .validator((input: { deviceId: string }) => ({ deviceId: deviceSchema.parse(input.deviceId) }))
   .handler(async ({ data }): Promise<AppStatus> => {
     const { getProUntil, getRemainingTries } = await import("./pro.server");
     const [proUntil, remaining] = await Promise.all([
@@ -20,7 +20,7 @@ export const getAppStatus = createServerFn({ method: "POST" })
 export type ActivateResult = { ok: true; proUntil: string } | { ok: false; message: string };
 
 export const activateCode = createServerFn({ method: "POST" })
-  .inputValidator((input: { deviceId: string; code: string }) => ({
+  .validator((input: { deviceId: string; code: string }) => ({
     deviceId: deviceSchema.parse(input.deviceId),
     code: normalizeCode(z.string().max(40).parse(input.code)),
   }))
@@ -107,7 +107,7 @@ const DIALECT_PROMPT: Record<"tn" | "msa" | "fr", string> = {
 };
 
 export const generateAd = createServerFn({ method: "POST" })
-  .inputValidator((input: z.input<typeof generateSchema>) => generateSchema.parse(input))
+  .validator((input: z.input<typeof generateSchema>) => generateSchema.parse(input))
   .handler(async ({ data }): Promise<GenerateResult> => {
     const { supabaseAdmin, getProUntil } = await import("./pro.server");
     const proUntil = await getProUntil(data.deviceId);

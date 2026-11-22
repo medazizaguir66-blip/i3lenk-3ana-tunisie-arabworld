@@ -20,6 +20,7 @@ const buttonVariants = cva(
         gold: "bg-gold-gradient text-gold-foreground shadow-gold font-bold active:scale-[0.98] transition-transform hover:brightness-105",
         glass: "bg-royal-foreground/10 text-royal-foreground border border-royal-foreground/20 backdrop-blur hover:bg-royal-foreground/20",
         royal: "bg-royal text-royal-foreground shadow hover:bg-royal/90",
+        crown: "bg-royal-deep text-gold shadow-card font-bold active:scale-[0.98] transition-transform hover:bg-royal",
       },
       size: {
         default: "h-9 px-4 py-2",
