@@ -28,3 +28,9 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Project rules
+- Activation codes and daily usage tables have RLS on with no client policies; all access goes through server functions using the service-role client loaded inside handlers (`src/lib/pro.server.ts`), because visitors are anonymous (device id only).
+- Shared business rules (limits, code format, expiry math) live in `src/lib/codes.ts` and are covered by `src/lib/codes.test.ts`; change both together.
+- `/admin` is a shared-password gate (encrypted session cookie, SameSite=None so it works inside the preview iframe), not user accounts.
+- AI generation uses the Lovable AI Gateway SDK with a Gemini chat model in `src/lib/app.functions.ts`; a failed generation refunds the free try.
