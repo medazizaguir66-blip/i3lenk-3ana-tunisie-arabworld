@@ -2,9 +2,9 @@ import { Copy, Crown, Instagram, KeyRound, MessageSquareText } from "lucide-reac
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
 import { copyText } from "@/lib/clipboard";
-import { INSTAGRAM_USERNAME, PAYMENT_NUMBER, PRO_PRICE_DT } from "@/lib/codes";
+import { INSTAGRAM_USERNAME, PAYMENT_NUMBER, PRO_DAYS, PRO_PRICE_DT } from "@/lib/codes";
 
-const SMS_BODY = `سلام، خلّصت ${PRO_PRICE_DT} دينار اشتراك Pro في "إعلانك عنّا". هاني باعثلك لقطة الدفع، يعيشك ابعثلي كود التفعيل.`;
+const SMS_BODY = `سلام، حوّلت ${PRO_PRICE_DT} دينار اشتراك Pro في "إعلانك عنّا". هاني باعثلك لقطة الدفع، يعيشك ابعثلي كود التفعيل.`;
 
 function openInstagram() {
   const webUrl = `https://instagram.com/${INSTAGRAM_USERNAME}`;
@@ -53,35 +53,32 @@ export function ProModal({
           </DialogDescription>
         </div>
 
-        <div className="min-w-0 space-y-5 p-5">
-          <ol className="space-y-3 text-sm">
-            <li className="flex gap-3">
-              <span className="grid size-7 shrink-0 place-items-center rounded-full bg-gold-gradient text-xs font-bold text-gold-foreground shadow-gold">1</span>
-              <div className="min-w-0 flex-1">
-                <p className="font-semibold">خلّص {PRO_PRICE_DT} دينار عبر D17 ولا Flouci على الرقم:</p>
-                <button
-                  type="button"
-                  onClick={() => copyText(PAYMENT_NUMBER, "تم نسخ الرقم!")}
-                  className="mt-2 flex w-full items-center justify-between rounded-2xl border-2 border-dashed border-gold-deep bg-card px-4 py-3"
-                >
-                  <span dir="ltr" className="font-display text-2xl font-bold tracking-widest text-royal">
-                    {PAYMENT_NUMBER}
-                  </span>
-                  <span className="flex items-center gap-1 text-xs font-medium text-accent-foreground">
-                    <Copy className="size-3.5" /> نسخ
-                  </span>
-                </button>
-              </div>
-            </li>
-            <li className="flex gap-3">
-              <span className="grid size-7 shrink-0 place-items-center rounded-full bg-gold-gradient text-xs font-bold text-gold-foreground shadow-gold">2</span>
-              <p className="flex-1 pt-1 font-semibold">ابعثلنا لقطة شاشة (capture) متاع الدفع من هنا 👇</p>
-            </li>
-            <li className="flex gap-3">
-              <span className="grid size-7 shrink-0 place-items-center rounded-full bg-gold-gradient text-xs font-bold text-gold-foreground shadow-gold">3</span>
-              <p className="flex-1 pt-1 font-semibold">توصلك كود التفعيل <span dir="ltr" className="whitespace-nowrap">TN-XXXX-XXXX</span>، دخّلو في الإعدادات ⚙️</p>
-            </li>
-          </ol>
+        <div className="min-w-0 space-y-4 p-5">
+          <p className="rounded-2xl border-2 border-gold-deep/35 bg-card/70 p-4 text-[15px] font-semibold leading-7">
+            للاشتراك في النسخة المفتوحة (Pro) لمدة {PRO_DAYS} يوماً، قم بتحويل رصيد بقيمة{" "}
+            <span className="text-gold-deep">{PRO_PRICE_DT} دينار</span> (Transfert de crédit أو بطاقة
+            شحن) على الرقم{" "}
+            <span dir="ltr" className="font-display font-bold tracking-wider text-royal">
+              {PAYMENT_NUMBER}
+            </span>
+            ، ثم أرسل لنا رسالة SMS أو لقطة شاشة على إنستغرام لاستلام كود التفعيل فوراً
+          </p>
+
+          <button
+            type="button"
+            onClick={() => copyText(PAYMENT_NUMBER, "تم نسخ الرقم!")}
+            className="flex w-full items-center justify-between gap-3 rounded-2xl border-2 border-dashed border-gold-deep bg-card px-4 py-3"
+          >
+            <span className="shrink-0 text-xs font-semibold whitespace-nowrap text-muted-foreground">رقم التحويل</span>
+            <span className="flex min-w-0 items-center gap-2">
+              <span dir="ltr" className="font-display text-xl font-bold tracking-widest text-royal min-[380px]:text-2xl">
+                {PAYMENT_NUMBER}
+              </span>
+              <span className="flex shrink-0 items-center gap-1 text-xs font-medium text-accent-foreground">
+                <Copy className="size-3.5" /> نسخ
+              </span>
+            </span>
+          </button>
 
           <div className="space-y-2.5">
             <div className="grid grid-cols-[minmax(0,1fr)_auto] gap-2">
@@ -107,6 +104,11 @@ export function ProModal({
               </a>
             </Button>
           </div>
+
+          <p className="text-center text-xs leading-5 text-muted-foreground">
+            توصلك كود التفعيل <span dir="ltr" className="whitespace-nowrap">TN-XXXX-XXXX</span>، دخّلو في
+            الإعدادات ⚙️
+          </p>
 
           <button
             type="button"

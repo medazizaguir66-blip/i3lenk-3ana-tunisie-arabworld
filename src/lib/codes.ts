@@ -3,7 +3,7 @@ export const FREE_DAILY_LIMIT = 3;
 export const PRO_DAYS = 30;
 export const PRO_PRICE_DT = 15;
 export const PAYMENT_NUMBER = "52535555";
-export const INSTAGRAM_USERNAME = "aguir._.mohamed_aziz";
+export const INSTAGRAM_USERNAME = "i3lenk._.3ana";
 
 const DAY_MS = 24 * 60 * 60 * 1000;
 const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
